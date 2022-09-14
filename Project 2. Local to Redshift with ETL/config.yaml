@@ -1,0 +1,7 @@
+user: awsuser
+password: Sharif#1214
+url: jdbc:redshift://redshift-cluster-1.cccg7kqejxio.us-east-1.redshift.amazonaws.com:5439/dev
+db_table: Calls
+source_file_bucket: sharif-busket
+file_path: trigger-file/911_Calls_for_Service_(Last_30_Days).csv
+trg_file_bucket: s3://sharif-bucket2/
