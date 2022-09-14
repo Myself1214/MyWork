@@ -24,6 +24,7 @@ user = config_file['user']
 password = config_file['password']
 url = config_file['url']
 db_table = config_file['db_table']
+trg_file_bucket = config_file['trg_file_bucket']
 
 
 # Function to write dataframe to redshift 
@@ -44,7 +45,7 @@ job = Job(glueContext)
 
 
 # Reading parquet files from Enriched bucket into PySpark DataFrame
-initial_df = spark.read.format("parquet").load('s3://sharif-bucket2/')
+initial_df = spark.read.format("parquet").load(trg_file_bucket)
 
 # removing null values from DataFrame
 initial_df = initial_df.na.drop(how="any")
@@ -57,4 +58,3 @@ initial_df.select(col("call_timestamp"), to_timestamp(col("call_timestamp"), "MM
 
 # Writing processed dataframe into a table 'calls' in Redshift
 write_to_redshift(initial_df, user, password, url, db_table)
-
