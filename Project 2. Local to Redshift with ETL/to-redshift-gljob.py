@@ -57,3 +57,4 @@ initial_df.select(col("call_timestamp"), to_timestamp(col("call_timestamp"), "MM
 
 # Writing processed dataframe into a table 'calls' in Redshift
 write_to_redshift(initial_df, user, password, url, db_table)
+
