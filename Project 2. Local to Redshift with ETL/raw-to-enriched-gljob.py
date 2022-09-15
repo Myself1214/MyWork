@@ -21,6 +21,7 @@ config_file = yaml.safe_load(obj['Body'].read().decode('utf-8'))
 # retrieving config file elements into seperate variables
 source_file_bucket = config_file['source_file_bucket']
 file_path = config_file['file_path']
+trg_file_bucket = config_file['trg_file_bucket'].split('//')[1].split('/')[0]
 
 
     #===============Reading file from s3 bucket===========================
@@ -35,8 +36,8 @@ df = pd.read_csv(obj['Body'], skipinitialspace = True) # 'Body' is a key word
 ddf = da.from_pandas(df, npartitions=6)
 
 #cleaniing old files in s3
-s3_resource.Object('sharif-bucket2', '*').delete()
+s3_resource.Object(trg_file_bucket, '*').delete()
 
 #writing partitions in parquet format
-object = s3_resource.Object('sharif-bucket2', '_metadata')
-object.put(Body=(bytes(json.dumps(ddf.to_parquet('s3://sharif-bucket2'), default=str).encode())))
+object = s3_resource.Object(trg_file_bucket, '_metadata')
+object.put(Body=(bytes(json.dumps(ddf.to_parquet(f's3://{trg_file_bucket}'), default=str).encode())))
