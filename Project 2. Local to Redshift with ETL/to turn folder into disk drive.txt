@@ -1,1 +1,1 @@
-SUBST (drive letter): (file host drive):\(path to file)
+SUBST (drive letter): (folder host drive):\(path to folder)
