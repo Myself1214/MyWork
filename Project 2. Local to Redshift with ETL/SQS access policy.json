@@ -1,0 +1,20 @@
+{
+  "Version": "2008-10-17",
+  "Id": "my_id",
+  "Statement": [
+    {
+      "Sid": "s3-event-notifier",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "s3.amazonaws.com"
+      },
+      "Action": "SQS:SendMessage",
+      "Resource": "<paste here ARN for SQS that will receive messages from s3 bucket>",
+      "Condition": {
+        "ArnLike": {
+          "aws:SourceArn": "<paste here ARN of your s3 bucket that will send (publish) messages to above SQS>"
+        }
+      }
+    }
+  ]
+}
