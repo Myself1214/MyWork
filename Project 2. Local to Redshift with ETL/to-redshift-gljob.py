@@ -56,5 +56,5 @@ initial_df = initial_df.drop('X','Y','ObjectId','__null_dask_index__')
 # converting datetime column's type from string to datetime type in DataFrame
 initial_df.select(col("call_timestamp"), to_timestamp(col("call_timestamp"), "MM-dd-yyyy HH mm ss SSS").alias("call_timestamp"))
 
-# Writing processed dataframe into a table 'calls' in Redshift
+# Writing processed dataframe into a table in Redshift
 write_to_redshift(initial_df, user, password, url, db_table)
