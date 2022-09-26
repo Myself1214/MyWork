@@ -15,3 +15,5 @@ Project proposeed solutions:
 8. Networking onfigurations: Endpoints, ACL and Security Groups.
 
 Ultiately query data in Redshift through console or SQL Workbench to validate it
+
+
