@@ -9,8 +9,12 @@
         "Service": "s3.amazonaws.com"
       },
       "Action": "SNS:Publish",
-      "Resource": "your_SNS_topic_ARN",
+      "Resource": "your_SNS_ARN",
       "Condition": {
         "ArnLike": {
-          "aws:SourceArn": "your_source_s3_bucket_ARN"
+          "aws:SourceArn": "your_s3_raw_bucker_ARN"
         }
+      }
+    }
+  ]
+}
