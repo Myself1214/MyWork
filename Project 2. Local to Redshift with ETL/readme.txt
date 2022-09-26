@@ -16,4 +16,4 @@ PROJECT PROPOSED SOLUTION:
 
 Ultimately, query data in Redshift through console or SQL Workbench to validate it
 
-
+CHECK OUT OTHER PROJECTS ON MY WEB SITE: www.sharif-cloud.com
