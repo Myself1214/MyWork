@@ -1,0 +1,14 @@
+{
+  "source": ["aws.s3"],
+  "detail-type": ["Object Created"],
+  "detail": {
+    "bucket": {
+      "name": ["raw-bucket-name"]
+    },
+    "object": {
+      "key": [{
+        "prefix": "folder-name(if any)/"
+      }]
+    }
+  }
+}
