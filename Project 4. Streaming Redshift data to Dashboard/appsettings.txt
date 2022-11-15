@@ -1,0 +1,30 @@
+{
+"Sources": [
+		{
+		"id": "any_id_name",
+		"SourceType": "DirectorySource",
+		"Directory": "your_path_for_lookup_file",
+		"FileNameFilter": "json_file.txt",
+		"RecordParser": "SingleLine"
+		}
+		],
+"Pipes": [
+		{
+		"id": "any_id_name",
+		"SourceRef": "id_name_from_Sources",
+		"SinkRef": "id_name_from_Sinks"
+		}
+	   ],
+"Sinks": [
+		{
+		"id": "any_id_name",
+		"SinkType": "KinesisStream",
+		"StreamName": "your_kinesis_DataStream_name",
+		"AccessKey": "your_access key",
+		"SecretKey": "your_sekret_key",
+		"Region": "your_region"
+		}
+	  ]
+}
+
+	
