@@ -7,7 +7,7 @@ connstr = 'redshift+psycopg2://user_name:password@redshift-cluster-1.cccg7kqejxi
 
 engine = create_engine(connstr) 
 with engine.connect() as conn, conn.begin():
-   df = pd.read_sql("select * from calls", conn)
+   df = pd.read_sql("select * from <your_table_name>", conn)
 
 file_dict = df.to_dict('index')
 
