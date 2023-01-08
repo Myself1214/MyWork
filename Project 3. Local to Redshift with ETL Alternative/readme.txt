@@ -1,4 +1,4 @@
-THIS PROJECT IS ABOUT AUTOMATING DATA TRANsFER FROM LOCAL MACHINE TO AWS REDSHIFT DATABASE WHILE IMPLYING ETL STEPS IN BETWEEN
+THIS PROJECT IS ABOUT AUTOMATING DATA TRANSFER FROM LOCAL MACHINE TO AWS REDSHIFT DATABASE WHILE IMPLYING ETL STEPS IN BETWEEN
 (This project is an alternative, more efficient and less resoursfule version of Project 2.)
 
 There are many ways data pipelines could be developed based on business need and cost optimization prospectives. It intends to demonstrate relationships between different AWS components and may potentially benefit some readers looking to utilize resources covered in this project.
