@@ -23,5 +23,7 @@ Other tools and technoliogies:
 - Python
 - WS PowerSell
 - Command Prompt
+- JSON
+- AWS CDK
 
 Check out other projects at: sharif-cloud.com
