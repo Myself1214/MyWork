@@ -26,4 +26,4 @@ Other tools and technoliogies:
 - JSON
 - AWS CDK
 
-Check out other projects at: sharif-cloud.com
+Check out other projects at: www.sharif-cloud.com
