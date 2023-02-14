@@ -1,0 +1,24 @@
+BUSINESS JUSTIFICATION
+On many accasiones business teams such as marketing, analytics and others may need users data from a given Social Network platform, such as
+LinkdIn, Facebook, Twitter, Instagram or any other to validate/use on their projects. This may not only be users' contact info but other
+attibutes as profession, skills, interest and other items that could be valuable to business to make informed decisions and be scraped 
+from those platforms. Manually achiving this task may be tedious, time consuming and sometimes impossible due to volume of data to be 
+collected. Therefore having a script that is able to gather those data points at minimal amount of time and no manual human intervention can 
+be extremely cost efficient.
+
+
+PROJECT GOAL
+Scrape contact information (email, phone, etc.) for list of individuals from LinkedIn based on their name
+
+Main script logic to be developed:
+
+ 1. Log in to LinkedIn
+ 2. Read individual's name from list
+ 3. Input name in search field and key 'Enter'
+ 4. Wait for result to load and validate successfull load
+ 5. Scrape the page
+ 6. Filter out contact info from scraped page
+ 7. Save contact info into a new list of contacts
+ 8. Repeat the process for every name on the list
+ 9. Save the final list with contact info into a file in a given directory
+
