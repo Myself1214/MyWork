@@ -1,0 +1,7 @@
+user: your_redshift_username
+password: your_redshift_password
+url: your_redshift_jdbc_endpoint_url
+db_table: your_table_name_to_be_created_in_redshift
+source_file_bucket: your_source(raw)_s3_bucket
+file_path: your_file_path_in_raw_s3_bucket
+trg_file_bucket: s3://your_target(enriched)_s3_bucket/

@@ -1,0 +1,14 @@
+{
+  "source": ["aws.s3"],
+  "detail-type": ["Object Created"],
+  "detail": {
+    "bucket": {
+      "name": ["your_enrched_bucket_neme_for_trigger_file"]
+    },
+    "object": {
+      "key": [{
+        "prefix": "for_trigger_file/"
+      }]
+    }
+  }
+}

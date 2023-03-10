@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="example.css" media=”screen” />
+<title>Sharif Rakhimov</title>
+</head>
+<body>
+<h3 style="text-align: center;">
+    This project reflects work done to host this static website on AWS, register domain name, obtain SSL certificate and deliver content using aws CloudFront to end users
+</h3><br>
+<p>Take a quick look at Work Flow Diagram to get hight level picture of work to be done</p>
+<img src = "..\Images\Static_diagram.jpg" width="750" height="450"/>
+<br>
+<br>
+<p><strong>Plan of Work:</strong></p>
+<Ul>
+<li>Register a new domain 'sharif-cloud.com'</li>
+<li>Create Hosted zone for DNS records</li>
+<li>Create main and redirect S3 buckets and load website files</li>
+<li>Create DNS record to route new domain to S3 public endpoints</li>
+<li>Request SSL certificate from Certificate Manager</li>
+<li>Create CNAME records in Hosted zone for main and redirect DNS names</li>
+<li>Create two CloudFront distributions and link them to each bucket's public endpoint and their domain names respectively</li>
+<li>In hosted zone, change both domain record configurations to re-route traffic to CloudFront distributions instead of S3 public endpoints</li>
+</ul>
+
+<ul>
+<li><strong>Main domain:</strong> sharif-cloud.com</li>    
+<li><strong>Redirect domain:</strong> www.sharif-cloud.com</li>
+</ul>
+<p><strong>Actual steps:</strong></p>
+
+<ol>
+<li>In Route 53, register a domain name</li>
+<li>Create s hosted zone</li>
+<ul>
+    <li>When we register a domain name AWS automatically creates a hosted zone for us.</li>
+    <li>Note: Hosted zone is a container of records and each of those records contain information about how to route traffic to a specific domain. Ex: sharif-cloud.com will be routed to the  link from s3 bucket's public endpoint where static website lives in. And www.sharif-cloud.com link will be routed to another s3 bucket's public endpoint and that in turn will redirect traffic to previous s3 bucket that's housing this static website.</li>
+</ul>
+<li>In S3 console create S3 buckets for main and redirect domains.</li>
+<ul>
+    <li>Bucket name must match domain name (website name)</li>
+    <li>Allow public access to bucket in properties section</li>
+    <li>Enable static website hosting in properties section</li>
+    <li>Add following read rights policy in permissions section of the bucket:</li>
+    <pre v-pre data-lang>
+    <code class="lang">
+        {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "PublicReadGetObject",
+                "Effect": "Allow",
+                "Principal": "*",
+                "Action": [
+                    "s3:GetObject"
+                ],
+                "Resource": [
+                    "arn:aws:s3:::bucket_name/*"
+                    ]
+                }
+            ]
+        }
+    </code>
+    </pre>
+    <li>Upload websites .html documents</li>
+</ul>
+    <li>S3 bucket for redirect domain</li>
+    <ul>
+    <li>Bucket name must match redirect domain name</li>
+    <li>Allow public access to bucket in properties  </li>
+    <li>Enable static website hosting in properties and chose option 'Redirect requests for an object'</li>
+    </ul>
+    <li>Route 53 - Hosted zone. Currently has one domain name registered but not linked to any website.</li>    
+    <ul>
+    <li>Create two records, one for linking main domain to main s3 bucket. Another for linking redirect domain to s3 redirect bucket. Only difference between both records is the 'Record name' box</li>
+    <li>Quick create record - if linking to www.XXX website then add only www in the name, otherwise leave name empty. </li>
+    <li>Record type - 'A-Routes traffic to an IPv4 address'</li>
+    <li>Route traffic to - 'Alias to website endpoint'</li>
+    <li>Region '' region where S3 buckets are created in</li>
+    <li>Lookup - respective S3 buckets public endpoint</li>
+    <li>Now after couple mins check in browser both domains will be routing traffic to your website. However, connection is HTTP and is not secure. To make it secure we need to create SSL Certificate and use cloudfront to redirect all HTTP connection to HTTPS</li>
+    </ul>
+    <li>AWS Certificate Manager - Request a certificate - request a public certificate</li>
+    <ul>
+    <li>Add both domain names in Fully Qualified Domain Names (FQDN)</li>
+    <li>Select DNS validation and click request. </li>
+    <li>After certificate is created, we need to validate it. Open certificate's configuration and select 'Create records in Route 53' and add both FQDN we previously issued certificate for. In our hosted zone we can see two newly created CNAME (certificate name) records. Now that certificate is ready, we will apply it to our website using AWS Cloudfront</li>
+    </ul>
+    <li>In AWS Cloudfront distribution </li>
+    <ul>
+    <li>Create distribution 
+    <li>From main S3 bucket, in the properties copy the 'Bucket website endpoint' and paste it in the 'Origin name' section of cloudfront distribution
+    <li>Disable origin shield
+    <li>In the 'default cache behavior' select 'HTTP to HTTPS'
+    <li>In 'setting' section select desired price class for our content delivery
+    <li>Fill in 'Alternate Domain Name' with our main website domain name and done
+    <li>Create another distribution for our redirect s3 bucket with same configurations, except use redirect bucket's endpoint and respective domain name for our alternate Domain Name
+    <li>Now our both distributions have auto-generated domain names
+    </ul>
+    <li>In redirect S3 bucket's properties, static website hosting section, in Protocol subsection change to HTTPS option</li>
+    <li>Finally, go to Route 53 - hosted zone and change both domain's A records. Changes to make: in section 'Route traffic to” change to 'Alies to CloudFront Distributions and in lookup section below it choose (or copy paste) respective CloudFront distribution domain name. This way we rerouting traffic to our CloudFront distributions, that in turn are routing traffic to s3 buckets website endpoint and their alternate DNS names using HTTPS protocol.</li>
+</ol>
+   <p>And now it's time to check our website in browser… Vuala, both domain names redirect traffic to our website using secure HTTPS protocol.</p>   
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

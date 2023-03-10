@@ -1,0 +1,20 @@
+{
+  "Version": "2008-10-17",
+  "Id": "whatever-ID",
+  "Statement": [
+    {
+      "Sid": "s3-event-notifier",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "s3.amazonaws.com"
+      },
+      "Action": "SNS:Publish",
+      "Resource": "your_SNS_ARN",
+      "Condition": {
+        "ArnLike": {
+          "aws:SourceArn": "your_s3_raw_bucker_ARN"
+        }
+      }
+    }
+  ]
+}
