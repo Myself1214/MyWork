@@ -12,8 +12,8 @@ from selenium.webdriver.common.by import By
 
 
 #declare login credentials
-username = 'rakhimov.sharif@gmail.com'
-password='1214shanya'
+username = 'your_username'
+password='your_password'
 
 #creating an instance of browser to work on
 browser = webdriver.Chrome('D:\All from D\chromedriver_win32\chromedriver.exe')
