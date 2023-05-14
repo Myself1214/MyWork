@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[15]:
-
 
 #import chrome webdriver and BeautifulSoup
 
@@ -16,7 +14,7 @@ username = 'your_username'
 password='your_password'
 
 #creating an instance of browser to work on
-browser = webdriver.Chrome('D:\All from D\chromedriver_win32\chromedriver.exe')
+browser = webdriver.Chrome('<path_to_chromedriver>\chromedriver.exe')
 
 #opening linkedIn main page to log in in browser instance opened previousely
 browser.get('https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin')
@@ -33,10 +31,3 @@ pass_field.send_keys(password)
 
 #submit log in credentials
 pass_field.submit()
-
-
-# In[ ]:
-
-
-
-
