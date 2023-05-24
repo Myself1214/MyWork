@@ -55,6 +55,10 @@ for candidate in candidate_list:
 
     link = browser.find_element(By.PARTIAL_LINK_TEXT, candidate)
     link.send_keys(Keys.ENTER)
+    time.sleep(2)
+    
+    #refreshing page to insure 'info' element is identifyable
+    browser.refresh()
 
     #clicking on 'Contact info' link/button
     contact_info = browser.find_element(By.ID, 'top-card-text-details-contact-info')
